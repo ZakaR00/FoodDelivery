@@ -1,0 +1,137 @@
+<html>
+<head>
+<title>BacketScreen.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+.s4 { color: #e8bf6a;}
+.s5 { color: #bababa;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+BacketScreen.js</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">React from </span><span class="s2">&quot;react&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">{</span>
+  <span class="s1">Text</span><span class="s0">,</span>
+  <span class="s1">View</span><span class="s0">, </span><span class="s1">FlatList</span><span class="s0">, </span><span class="s1">ActivityIndicator</span><span class="s0">, </span><span class="s1">ScrollView</span><span class="s0">, </span><span class="s1">Alert</span><span class="s0">,</span>
+<span class="s1">} from </span><span class="s2">&quot;react-native&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">{ Button</span><span class="s0">, </span><span class="s1">TextInput</span><span class="s0">, </span><span class="s1">List</span><span class="s0">, </span><span class="s1">Checkbox } from </span><span class="s2">&quot;react-native-paper&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">axios from </span><span class="s2">&quot;axios&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">Indicator from </span><span class="s2">&quot;./Indicator&quot;</span><span class="s0">;</span>
+
+<span class="s0">class </span><span class="s1">BacketScreen </span><span class="s0">extends </span><span class="s1">React.Component {</span>
+
+  <span class="s1">state = {</span>
+    <span class="s1">name_text: </span><span class="s2">``</span><span class="s0">,</span>
+    <span class="s1">surname_text: </span><span class="s2">``</span><span class="s0">,</span>
+    <span class="s1">telephon_text: </span><span class="s2">``</span><span class="s0">,</span>
+    <span class="s1">address_text: </span><span class="s2">``</span><span class="s0">,</span>
+    <span class="s1">sostav: </span><span class="s0">this</span><span class="s1">.props.route.params.sostav</span><span class="s0">,</span>
+    <span class="s1">radio: </span><span class="s2">`1`</span><span class="s0">,</span>
+    <span class="s1">indicator: </span><span class="s0">true,</span>
+    <span class="s1">button: </span><span class="s0">true,</span>
+    <span class="s1">checked: []</span><span class="s0">,</span>
+  <span class="s1">}</span><span class="s0">;</span>
+
+<span class="s1">componentDidMount() {</span>
+  <span class="s0">this</span><span class="s1">.setState({</span>
+    <span class="s1">indicator:</span><span class="s0">false</span>
+  <span class="s1">})</span>
+<span class="s1">}</span>
+
+  <span class="s1">zakaz = async () =&gt; {</span>
+    <span class="s0">try </span><span class="s1">{</span>
+      <span class="s0">const </span><span class="s1">items = axios.get(</span><span class="s2">`https://api.telegram.org/bot1986744403:AAFB4HvONYVlYTk-UW2mQzdjPRjLKJFTaxo/sendMessage?`</span><span class="s0">, </span><span class="s1">{</span>
+        <span class="s1">params: {</span>
+          <span class="s1">text:</span>
+            <span class="s2">`*Имя:* </span><span class="s1">${</span><span class="s0">this</span><span class="s1">.state.name_text}</span><span class="s0">\n</span><span class="s2">*Фамилия:*</span><span class="s1">${</span><span class="s0">this</span><span class="s1">.state.surname_text}</span><span class="s0">\n </span><span class="s2">*Телефон:*</span><span class="s1">${</span><span class="s0">this</span><span class="s1">.state.telephon_text} </span><span class="s0">\n </span><span class="s2">*Адрес:*</span><span class="s1">${</span><span class="s0">this</span><span class="s1">.state.address_text}</span><span class="s0">\n </span><span class="s2">*Блюдо:*</span><span class="s1">${</span><span class="s0">this</span><span class="s1">.state.checked.join(</span><span class="s2">`</span><span class="s0">\n</span><span class="s2">`</span><span class="s1">)}</span><span class="s2">`</span><span class="s0">,</span>
+          <span class="s1">chat_id: </span><span class="s3">1216966501</span><span class="s0">,</span>
+          <span class="s1">parse_mode: </span><span class="s2">`MarkdownV2`</span><span class="s0">,</span>
+        <span class="s1">}</span><span class="s0">,</span>
+      <span class="s1">})</span><span class="s0">;</span>
+    <span class="s1">} </span><span class="s0">catch </span><span class="s1">(e) {</span>
+      <span class="s1">console.log(e)</span><span class="s0">;</span>
+    <span class="s1">}</span><span class="s0">finally </span><span class="s1">{</span>
+      <span class="s1">Alert.alert(</span><span class="s2">`Заказ</span><span class="s1">${</span><span class="s0">this</span><span class="s1">.state.checked.length}</span><span class="s2">` </span><span class="s0">,</span><span class="s2">`Заказ Принят`</span><span class="s1">)</span>
+      <span class="s0">this</span><span class="s1">.props.navigation.navigate(</span><span class="s2">`Kor`</span><span class="s1">)</span>
+      <span class="s0">this</span><span class="s1">.setState({button:</span><span class="s0">false</span><span class="s1">})</span>
+    <span class="s1">}</span>
+  <span class="s1">}</span><span class="s0">;</span>
+
+  <span class="s1">render() {</span>
+    <span class="s0">if </span><span class="s1">(</span><span class="s0">this</span><span class="s1">.state.indicator) {</span>
+      <span class="s0">return </span><span class="s1">(</span>
+        <span class="s4">&lt;&gt;</span>
+          <span class="s4">&lt;Indicator/&gt;</span>
+        <span class="s4">&lt;/&gt;</span>
+      <span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">return </span><span class="s1">(</span>
+      <span class="s4">&lt;&gt;</span>
+        <span class="s4">&lt;ScrollView&gt;</span>
+        <span class="s4">&lt;View</span>
+          <span class="s5">style</span><span class="s2">=</span><span class="s1">{{</span>
+            <span class="s1">justifyContent: </span><span class="s2">`flex-start`</span><span class="s0">,</span>
+            <span class="s1">alignItems: </span><span class="s2">`center`</span><span class="s0">,</span>
+            <span class="s1">margin: </span><span class="s3">10</span>
+          <span class="s1">}}</span><span class="s4">&gt;</span>
+          <span class="s4">&lt;TextInput</span>
+            <span class="s5">style</span><span class="s2">=</span><span class="s1">{{ width: </span><span class="s3">400</span><span class="s0">, </span><span class="s1">marginTop: </span><span class="s3">10 </span><span class="s1">}}</span>
+            <span class="s5">placeholder</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`Ваше имя`</span><span class="s1">}</span>
+            <span class="s5">onChangeText</span><span class="s2">=</span><span class="s1">{(text) =&gt; </span><span class="s0">this</span><span class="s1">.setState({ name_text: text })}</span>
+            <span class="s5">value</span><span class="s2">=</span><span class="s1">{</span><span class="s0">this</span><span class="s1">.state.name_text}</span>
+          <span class="s4">/&gt;</span>
+          <span class="s4">&lt;TextInput</span>
+            <span class="s5">style</span><span class="s2">=</span><span class="s1">{{ width: </span><span class="s3">400</span><span class="s0">, </span><span class="s1">marginTop: </span><span class="s3">10 </span><span class="s1">}}</span>
+            <span class="s5">placeholder</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`Ваше фамилия`</span><span class="s1">}</span>
+            <span class="s5">onChangeText</span><span class="s2">=</span><span class="s1">{(text) =&gt; </span><span class="s0">this</span><span class="s1">.setState({ surname_text: text })}</span>
+            <span class="s5">value</span><span class="s2">=</span><span class="s1">{</span><span class="s0">this</span><span class="s1">.state.surname_text}</span>
+          <span class="s4">/&gt;</span>
+          <span class="s4">&lt;TextInput</span>
+            <span class="s5">style</span><span class="s2">=</span><span class="s1">{{ width: </span><span class="s3">400</span><span class="s0">, </span><span class="s1">marginTop: </span><span class="s3">10 </span><span class="s1">}}</span>
+            <span class="s5">placeholder</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`Телефон номера`</span><span class="s1">}</span>
+            <span class="s5">onChangeText</span><span class="s2">=</span><span class="s1">{(text) =&gt; </span><span class="s0">this</span><span class="s1">.setState({ telephon_text: text })}</span>
+            <span class="s5">value</span><span class="s2">=</span><span class="s1">{</span><span class="s0">this</span><span class="s1">.state.telephon_text}</span>
+          <span class="s4">/&gt;</span>
+          <span class="s4">&lt;TextInput</span>
+            <span class="s5">style</span><span class="s2">=</span><span class="s1">{{ width: </span><span class="s3">400</span><span class="s0">, </span><span class="s1">marginTop: </span><span class="s3">10 </span><span class="s1">}}</span>
+            <span class="s5">placeholder</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`Ваш адрес`</span><span class="s1">}</span>
+            <span class="s5">onChangeText</span><span class="s2">=</span><span class="s1">{(text) =&gt; </span><span class="s0">this</span><span class="s1">.setState({ address_text: text })}</span>
+            <span class="s5">value</span><span class="s2">=</span><span class="s1">{</span><span class="s0">this</span><span class="s1">.state.address_text}</span>
+          <span class="s4">/&gt;</span>
+        <span class="s4">&lt;/View&gt;</span>
+
+          <span class="s4">&lt;View</span>
+            <span class="s5">style</span><span class="s2">=</span><span class="s1">{{</span>
+              <span class="s1">flexDirection: </span><span class="s2">`row`</span>
+            <span class="s1">}}</span><span class="s4">&gt;</span>
+            <span class="s4">&lt;FlatList </span><span class="s5">data</span><span class="s2">=</span><span class="s1">{</span><span class="s0">this</span><span class="s1">.state.sostav} </span><span class="s5">renderItem</span><span class="s2">=</span><span class="s1">{({ item }) =&gt; {</span>
+              <span class="s0">return </span><span class="s1">(</span>
+                <span class="s4">&lt;Checkbox.Item </span><span class="s5">label</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`</span><span class="s1">${item.strMeal}</span><span class="s2">`</span><span class="s1">} </span><span class="s5">status</span><span class="s2">=</span><span class="s1">{</span><span class="s0">this</span><span class="s1">.state.checked.includes(item.strMeal) ? </span><span class="s2">`checked`</span><span class="s1">: </span><span class="s2">'unchecked'</span><span class="s1">} </span><span class="s5">onPress</span><span class="s2">=</span><span class="s1">{() =&gt; {</span>
+                  <span class="s0">if </span><span class="s1">(</span><span class="s0">this</span><span class="s1">.state.checked.includes(item.strMeal)) {</span>
+                    <span class="s0">this</span><span class="s1">.setState(p =&gt; ({checked: p.checked.filter(v =&gt; v !== item.strMeal)}))</span><span class="s0">;</span>
+                  <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                    <span class="s0">this</span><span class="s1">.setState(p =&gt; ({checked: [...p.checked</span><span class="s0">, </span><span class="s1">item.strMeal]}))</span><span class="s0">;</span>
+                  <span class="s1">}</span>
+                <span class="s1">}} </span><span class="s4">/&gt;</span>
+              <span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}} </span><span class="s4">/&gt;</span>
+          <span class="s4">&lt;/View&gt;</span>
+        <span class="s4">&lt;Button  </span><span class="s5">mode</span><span class="s2">=&quot;contained&quot; </span><span class="s5">loading</span><span class="s2">=</span><span class="s1">{!</span><span class="s0">this</span><span class="s1">.state.button} </span><span class="s5">color</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`rgba(18, 121, 109, 0.88)`</span><span class="s1">} </span><span class="s5">onPress</span><span class="s2">=</span><span class="s1">{() =&gt; </span><span class="s0">this</span><span class="s1">.zakaz()}</span><span class="s4">&gt;</span><span class="s1">Заказать</span><span class="s4">&lt;/Button&gt;</span>
+           <span class="s4">&lt;/ScrollView&gt;</span>
+      <span class="s4">&lt;/&gt;</span>
+    <span class="s1">)</span><span class="s0">;</span>
+  <span class="s1">}</span>
+<span class="s1">}</span>
+
+<span class="s0">export default </span><span class="s1">BacketScreen</span><span class="s0">;</span>
+</pre>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<html>
+<head>
+<title>Order.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #e8bf6a;}
+.s4 { color: #bababa;}
+.s5 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Order.js</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">React from </span><span class="s2">&quot;react&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">{</span>
+  <span class="s1">Button</span><span class="s0">,</span>
+  <span class="s1">FlatList</span><span class="s0">, </span><span class="s1">ScrollView</span><span class="s0">,</span>
+  <span class="s1">Text</span><span class="s0">, </span><span class="s1">View</span><span class="s0">,</span>
+<span class="s1">} from </span><span class="s2">&quot;react-native&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">axios from </span><span class="s2">&quot;axios&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">{ RadioButton</span><span class="s0">, </span><span class="s1">TextInput } from </span><span class="s2">&quot;react-native-paper&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">Loading from </span><span class="s2">&quot;./Loading&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">Error from </span><span class="s2">&quot;./Context&quot;</span><span class="s0">;</span>
+
+<span class="s0">class </span><span class="s1">Order </span><span class="s0">extends </span><span class="s1">React.Component {</span>
+  <span class="s1">state = {</span>
+    <span class="s1">value: </span><span class="s2">`1`</span><span class="s0">,</span>
+    <span class="s1">data: </span><span class="s0">this</span><span class="s1">.props.route.params.data</span><span class="s0">,</span>
+    <span class="s1">name: </span><span class="s2">``</span><span class="s0">,</span>
+    <span class="s1">surname: </span><span class="s2">``</span><span class="s0">,</span>
+    <span class="s1">BankcardNumber: </span><span class="s2">``</span><span class="s0">,</span>
+    <span class="s1">numberOfServings: </span><span class="s2">`1`</span><span class="s0">,</span>
+    <span class="s1">internetCheck: </span><span class="s2">`good`</span><span class="s0">,</span>
+  <span class="s1">}</span><span class="s0">;</span>
+
+  <span class="s1">Order = (params) =&gt; {</span>
+    <span class="s0">this</span><span class="s1">.setState({</span>
+      <span class="s1">internetCheck: </span><span class="s2">`expectations`</span><span class="s0">,</span>
+    <span class="s1">})</span>
+    <span class="s0">const </span><span class="s1">text = axios.get(</span><span class="s2">`https://api.telegram.org/bot1979916801:AAE-TD1LePQewBwwXI8X01E_SeqEqNV6rtc/sendMessage?`</span><span class="s0">,</span>
+      <span class="s1">{params: params}</span>
+    <span class="s1">).then(() =&gt; {</span>
+      <span class="s0">this</span><span class="s1">.setState({</span>
+        <span class="s1">internetCheck: </span><span class="s2">`good`</span><span class="s0">,</span>
+      <span class="s1">}</span><span class="s0">, </span><span class="s1">() =&gt; </span><span class="s0">this</span><span class="s1">.props.navigation.navigate(</span><span class="s2">`Cart`</span><span class="s1">))</span>
+    <span class="s1">}).catch(() =&gt; {</span>
+      <span class="s0">this</span><span class="s1">.setState({</span>
+        <span class="s1">internetCheck: </span><span class="s2">`noInternet`</span><span class="s0">,</span>
+      <span class="s1">})</span>
+    <span class="s1">})</span>
+  <span class="s1">}</span>
+
+  <span class="s1">render() {</span>
+    <span class="s0">if </span><span class="s1">(</span><span class="s0">this</span><span class="s1">.state.internetCheck === </span><span class="s2">`expectations`</span><span class="s1">) {</span>
+      <span class="s0">return </span><span class="s3">&lt;Loading /&gt;</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">if </span><span class="s1">(</span><span class="s0">this</span><span class="s1">.state.internetCheck === </span><span class="s2">`noInternet`</span><span class="s1">){</span>
+      <span class="s0">return </span><span class="s3">&lt;Error </span><span class="s4">reload</span><span class="s2">=</span><span class="s1">{() =&gt; </span><span class="s0">this</span><span class="s1">.start()}</span><span class="s3">/&gt;</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">return </span><span class="s1">(</span>
+      <span class="s3">&lt;ScrollView&gt;</span>
+        <span class="s3">&lt;View</span>
+          <span class="s4">style</span><span class="s2">=</span><span class="s1">{{</span>
+            <span class="s1">width: </span><span class="s2">`100%`</span><span class="s0">,</span>
+            <span class="s1">alignItems: </span><span class="s2">`center`</span><span class="s0">,</span>
+          <span class="s1">}}</span>
+        <span class="s3">&gt;</span>
+          <span class="s3">&lt;Text</span>
+            <span class="s4">style</span><span class="s2">=</span><span class="s1">{{</span>
+              <span class="s1">fontSize: </span><span class="s5">60</span><span class="s0">,</span>
+            <span class="s1">}}</span>
+          <span class="s3">&gt;</span><span class="s1">Order:</span><span class="s3">&lt;/Text&gt;</span>
+        <span class="s3">&lt;/View&gt;</span>
+        <span class="s3">&lt;View</span>
+          <span class="s4">style</span><span class="s2">=</span><span class="s1">{{</span>
+            <span class="s1">paddingBottom: </span><span class="s5">20</span><span class="s0">,</span>
+          <span class="s1">}}</span>
+        <span class="s3">&gt;</span>
+          <span class="s3">&lt;TextInput</span>
+            <span class="s4">label</span><span class="s2">=&quot;Name&quot;</span>
+            <span class="s4">value</span><span class="s2">=</span><span class="s1">{</span><span class="s0">this</span><span class="s1">.state.name}</span>
+            <span class="s4">underlineColorAndroid</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`black`</span><span class="s1">}</span>
+            <span class="s4">onChangeText</span><span class="s2">=</span><span class="s1">{text =&gt; {</span><span class="s0">this</span><span class="s1">.setState({name: text})}}</span>
+          <span class="s3">/&gt;</span>
+          <span class="s3">&lt;TextInput</span>
+            <span class="s4">label</span><span class="s2">=&quot;Surname&quot;</span>
+            <span class="s4">value</span><span class="s2">=</span><span class="s1">{</span><span class="s0">this</span><span class="s1">.state.surname}</span>
+            <span class="s4">underlineColorAndroid</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`black`</span><span class="s1">}</span>
+            <span class="s4">onChangeText</span><span class="s2">=</span><span class="s1">{text =&gt; {</span><span class="s0">this</span><span class="s1">.setState({surname: text})}}</span>
+          <span class="s3">/&gt;</span>
+          <span class="s3">&lt;TextInput</span>
+            <span class="s4">label</span><span class="s2">=&quot;BankcardNumber&quot;</span>
+            <span class="s4">value</span><span class="s2">=</span><span class="s1">{</span><span class="s0">this</span><span class="s1">.state.BankcardNumber}</span>
+            <span class="s4">underlineColorAndroid</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`black`</span><span class="s1">}</span>
+            <span class="s4">onChangeText</span><span class="s2">=</span><span class="s1">{text =&gt; {</span><span class="s0">this</span><span class="s1">.setState({BankcardNumber: text})}}</span>
+          <span class="s3">/&gt;</span>
+          <span class="s3">&lt;TextInput</span>
+            <span class="s4">label</span><span class="s2">=&quot;numberOfServings&quot;</span>
+            <span class="s4">value</span><span class="s2">=</span><span class="s1">{</span><span class="s0">this</span><span class="s1">.state.numberOfServings}</span>
+            <span class="s4">underlineColorAndroid</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`black`</span><span class="s1">}</span>
+            <span class="s4">keyboardType</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`numeric`</span><span class="s1">}</span>
+            <span class="s4">onChangeText</span><span class="s2">=</span><span class="s1">{text =&gt; {</span><span class="s0">this</span><span class="s1">.setState({numberOfServings: text})}}</span>
+          <span class="s3">/&gt;</span>
+
+        <span class="s3">&lt;/View&gt;</span>
+        <span class="s3">&lt;RadioButton.Group </span><span class="s4">onValueChange</span><span class="s2">=</span><span class="s1">{(y) =&gt; </span><span class="s0">this</span><span class="s1">.setState({ value: y })} </span><span class="s4">value</span><span class="s2">=</span><span class="s1">{</span><span class="s0">this</span><span class="s1">.state.value}</span><span class="s3">&gt;</span>
+          <span class="s3">&lt;FlatList </span><span class="s4">data</span><span class="s2">=</span><span class="s1">{</span><span class="s0">this</span><span class="s1">.state.data} </span><span class="s4">renderItem</span><span class="s2">=</span><span class="s1">{({ item</span><span class="s0">, </span><span class="s1">index }) =&gt; {</span>
+            <span class="s0">return </span><span class="s1">(</span>
+              <span class="s3">&lt;RadioButton.Item </span><span class="s4">label</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`</span><span class="s1">${item.strMeal}</span><span class="s2">`</span><span class="s1">} </span><span class="s4">value</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`</span><span class="s1">${index}</span><span class="s2">`</span><span class="s1">} </span><span class="s3">/&gt;</span>
+            <span class="s1">)</span><span class="s0">;</span>
+          <span class="s1">}} </span><span class="s3">/&gt;</span>
+        <span class="s3">&lt;/RadioButton.Group&gt;</span>
+        <span class="s3">&lt;View</span>
+         <span class="s4">style</span><span class="s2">=</span><span class="s1">{{</span>
+           <span class="s1">height: </span><span class="s5">200</span><span class="s0">,</span>
+           <span class="s1">justifyContent: </span><span class="s2">`center`</span><span class="s0">,</span>
+         <span class="s1">}}</span>
+        <span class="s3">&gt;</span>
+          <span class="s3">&lt;Button </span><span class="s4">title</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`Order`</span><span class="s1">} </span><span class="s4">onPress</span><span class="s2">=</span><span class="s1">{() =&gt; {</span><span class="s0">this</span><span class="s1">.Order(</span>
+            <span class="s1">{text: </span><span class="s2">`Name:</span><span class="s1">${</span><span class="s0">this</span><span class="s1">.state.name}</span><span class="s2">,  
+            surname: </span><span class="s1">${</span><span class="s0">this</span><span class="s1">.state.surname}</span><span class="s2">,  
+            BankcardNumber: </span><span class="s1">${</span><span class="s0">this</span><span class="s1">.state.BankcardNumber}</span><span class="s2">, 
+            numberOfServings: </span><span class="s1">${</span><span class="s0">this</span><span class="s1">.state.numberOfServings}</span><span class="s2">, 
+            Food: </span><span class="s1">${</span><span class="s0">this</span><span class="s1">.state.data[</span><span class="s0">this</span><span class="s1">.state.value -</span><span class="s5">1</span><span class="s1">].strMeal}</span><span class="s2">`</span><span class="s0">,</span>
+                    <span class="s1">chat_id: -</span><span class="s5">1001535627874</span><span class="s0">,</span>
+          <span class="s1">})}}</span><span class="s3">/&gt;</span>
+        <span class="s3">&lt;/View&gt;</span>
+      <span class="s3">&lt;/ScrollView&gt;</span>
+    <span class="s1">)</span><span class="s0">;</span>
+  <span class="s1">}</span>
+<span class="s1">}</span>
+
+<span class="s0">export default </span><span class="s1">Order</span><span class="s0">;</span>
+</pre>
+</body>
+</html>

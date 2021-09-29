@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>App.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #e8bf6a;}
+.s4 { color: #bababa;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+App.js</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">React from </span><span class="s2">'react'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">{ NavigationContainer } from </span><span class="s2">'@react-navigation/native'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">{ Provider as PaperProvider } from </span><span class="s2">'react-native-paper'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">{ createMaterialBottomTabNavigator } from </span><span class="s2">'@react-navigation/material-bottom-tabs'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">Zaka from </span><span class="s2">&quot;./Zaka&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">App1 from </span><span class="s2">&quot;./App1&quot;</span>
+<span class="s0">import </span><span class="s1">Korzina from </span><span class="s2">&quot;./Korzina&quot;</span>
+
+
+<span class="s0">const </span><span class="s1">Tab = createMaterialBottomTabNavigator()</span><span class="s0">;</span>
+
+<span class="s0">function </span><span class="s1">App() {</span>
+    <span class="s0">return </span><span class="s1">(</span>
+      <span class="s3">&lt;PaperProvider&gt;</span>
+      <span class="s3">&lt;NavigationContainer&gt;</span>
+          <span class="s3">&lt;Tab.Navigator</span>
+            <span class="s4">shifting</span><span class="s2">=</span><span class="s1">{</span><span class="s0">true</span><span class="s1">}</span>
+            <span class="s4">labeled</span><span class="s2">=</span><span class="s1">{</span><span class="s0">true</span><span class="s1">}</span><span class="s3">&gt;</span>
+            <span class="s3">&lt;Tab.Screen </span><span class="s4">options</span><span class="s2">=</span><span class="s1">{{title: </span><span class="s2">`Главная`</span><span class="s0">, </span><span class="s1">tabBarColor:</span><span class="s2">`rgba(13, 138, 124, 0.88)` </span><span class="s0">, </span><span class="s1">tabBarIcon: </span><span class="s2">`home`</span><span class="s0">, </span><span class="s1">}} </span><span class="s4">name</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`App1`</span><span class="s1">} </span><span class="s4">component</span><span class="s2">=</span><span class="s1">{App1}</span><span class="s3">/&gt;</span>
+            <span class="s3">&lt;Tab.Screen </span><span class="s4">options</span><span class="s2">=</span><span class="s1">{{title: </span><span class="s2">`Страна`</span><span class="s0">, </span><span class="s1">tabBarColor: </span><span class="s2">`rgba(13, 138, 124, 0.88)`</span><span class="s0">, </span><span class="s1">tabBarIcon: </span><span class="s2">`flag`</span><span class="s1">}}  </span><span class="s4">name</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`Dad`</span><span class="s1">} </span><span class="s4">component</span><span class="s2">=</span><span class="s1">{Zaka}</span><span class="s3">/&gt;</span>
+            <span class="s3">&lt;Tab.Screen </span><span class="s4">options</span><span class="s2">=</span><span class="s1">{{title: </span><span class="s2">`Корзина`</span><span class="s0">, </span><span class="s1">tabBarColor: </span><span class="s2">`rgba(13, 138, 124, 0.88)`</span><span class="s0">,</span><span class="s1">tabBarIcon: </span><span class="s2">`cart`</span><span class="s1">}}  </span><span class="s4">name</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`Kor`</span><span class="s1">} </span><span class="s4">component</span><span class="s2">=</span><span class="s1">{Korzina}</span><span class="s3">/&gt;</span>
+          <span class="s3">&lt;/Tab.Navigator&gt;</span>
+      <span class="s3">&lt;/NavigationContainer&gt;</span>
+      <span class="s3">&lt;/PaperProvider&gt;</span>
+
+    <span class="s1">)</span>
+<span class="s1">}</span>
+<span class="s0">export default </span><span class="s1">App</span><span class="s0">;</span>
+</pre>
+</body>
+</html>

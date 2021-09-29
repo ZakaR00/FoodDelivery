@@ -1,0 +1,102 @@
+<html>
+<head>
+<title>Country.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #e8bf6a;}
+.s4 { color: #bababa;}
+.s5 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Country.js</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">React from </span><span class="s2">'react'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">{</span>
+  <span class="s1">Text</span><span class="s0">,</span>
+  <span class="s1">View</span><span class="s0">, </span><span class="s1">FlatList</span><span class="s0">, </span><span class="s1">ScrollView</span><span class="s0">, </span><span class="s1">TouchableOpacity</span><span class="s0">, </span><span class="s1">ActivityIndicator</span><span class="s0">,</span>
+<span class="s1">} from </span><span class="s2">&quot;react-native&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">{ createNativeStackNavigator } from </span><span class="s2">'@react-navigation/native-stack'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">{ createMaterialBottomTabNavigator } from </span><span class="s2">'@react-navigation/material-bottom-tabs'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">axios from </span><span class="s2">&quot;axios&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">Indicator from </span><span class="s2">&quot;./Indicator&quot;</span><span class="s0">;</span>
+
+<span class="s0">class </span><span class="s1">Country </span><span class="s0">extends </span><span class="s1">React.Component{</span>
+
+  <span class="s1">state= {</span>
+     <span class="s1">flag: []</span><span class="s0">,</span>
+    <span class="s1">indicator: </span><span class="s0">true</span>
+  <span class="s1">}</span>
+
+  <span class="s1">country =  async () =&gt; {</span>
+    <span class="s0">try </span><span class="s1">{</span>
+      <span class="s0">const </span><span class="s1">as = </span><span class="s0">await </span><span class="s1">axios.get(</span><span class="s2">`https://www.themealdb.com/api/json/v1/1/list.php?a=list`</span><span class="s1">)</span>
+      <span class="s1">console.log(as)</span>
+      <span class="s0">this</span><span class="s1">.setState({</span>
+        <span class="s1">flag: as.data.meals</span>
+      <span class="s1">})</span>
+    <span class="s1">} </span><span class="s0">catch </span><span class="s1">(e) {</span>
+      <span class="s1">console.log(e)</span>
+    <span class="s1">} </span><span class="s0">finally </span><span class="s1">{</span>
+      <span class="s0">this</span><span class="s1">.setState({</span>
+        <span class="s1">indicator: </span><span class="s0">false</span>
+      <span class="s1">})</span>
+    <span class="s1">}</span>
+  <span class="s1">}</span>
+
+  <span class="s1">father = (v) =&gt; {</span>
+    <span class="s0">this</span><span class="s1">.props.navigation.navigate(</span><span class="s2">`Sostav`</span><span class="s0">,</span><span class="s1">{</span>
+      <span class="s1">sos: v.strArea</span>
+    <span class="s1">})</span>
+  <span class="s1">}</span>
+
+  <span class="s1">componentDidMount() {</span>
+    <span class="s0">this</span><span class="s1">.country()</span><span class="s0">;</span>
+  <span class="s1">}</span>
+
+  <span class="s1">render() {</span>
+    <span class="s0">if </span><span class="s1">(</span><span class="s0">this</span><span class="s1">.state.indicator) {</span>
+      <span class="s0">return </span><span class="s1">(</span>
+        <span class="s3">&lt;&gt;</span>
+         <span class="s3">&lt;Indicator/&gt;</span>
+        <span class="s3">&lt;/&gt;</span>
+      <span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">return </span><span class="s1">(</span>
+      <span class="s3">&lt;&gt;</span>
+        <span class="s3">&lt;View</span>
+          <span class="s4">style</span><span class="s2">=</span><span class="s1">{{</span>
+            <span class="s1">flex: </span><span class="s5">1</span><span class="s0">,</span>
+            <span class="s1">backgroundColor: </span><span class="s2">`rgba(86, 210, 196, 0.88)`</span>
+        <span class="s1">}}</span><span class="s3">&gt;</span>
+          <span class="s3">&lt;ScrollView&gt;</span>
+            <span class="s1">{</span><span class="s0">this</span><span class="s1">.state.flag.map(v =&gt; (</span>
+              <span class="s3">&lt;View</span>
+                <span class="s4">style</span><span class="s2">=</span><span class="s1">{{</span>
+                  <span class="s1">margin: </span><span class="s5">10</span><span class="s0">,</span>
+                  <span class="s1">padding: </span><span class="s5">20</span><span class="s0">,</span>
+                  <span class="s1">backgroundColor: </span><span class="s2">`rgba(237,245,244,0.88)`</span>
+                <span class="s1">}}</span><span class="s3">&gt;</span>
+                <span class="s3">&lt;TouchableOpacity </span><span class="s4">onPress</span><span class="s2">=</span><span class="s1">{()=&gt;</span><span class="s0">this</span><span class="s1">.father(v)}</span><span class="s3">&gt;</span>
+                  <span class="s3">&lt;Text </span><span class="s4">style</span><span class="s2">=</span><span class="s1">{{fontSize: </span><span class="s5">20</span><span class="s0">,</span><span class="s1">}}</span><span class="s3">&gt;</span><span class="s1">{v.strArea}</span><span class="s3">&lt;/Text&gt;</span>
+                <span class="s3">&lt;/TouchableOpacity&gt;</span>
+              <span class="s3">&lt;/View&gt;</span>
+            <span class="s1">))}</span>
+          <span class="s3">&lt;/ScrollView&gt;</span>
+        <span class="s3">&lt;/View&gt;</span>
+
+       <span class="s3">&lt;/&gt;</span>
+    <span class="s1">)</span>
+  <span class="s1">}</span>
+<span class="s1">}</span>
+
+<span class="s0">export default </span><span class="s1">Country</span><span class="s0">;</span>
+</pre>
+</body>
+</html>

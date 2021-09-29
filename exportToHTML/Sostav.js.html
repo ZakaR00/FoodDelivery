@@ -1,0 +1,100 @@
+<html>
+<head>
+<title>Sostav.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #e8bf6a;}
+.s4 { color: #bababa;}
+.s5 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Sostav.js</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">React from </span><span class="s2">'react'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">{</span>
+  <span class="s1">Text</span><span class="s0">,</span>
+  <span class="s1">View</span><span class="s0">, </span><span class="s1">FlatList</span><span class="s0">, </span><span class="s1">ScrollView</span><span class="s0">, </span><span class="s1">ActivityIndicator</span><span class="s0">,</span>
+<span class="s1">} from </span><span class="s2">&quot;react-native&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">axios from </span><span class="s2">&quot;axios&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">{ Button</span><span class="s0">, </span><span class="s1">Card</span><span class="s0">, </span><span class="s1">Title } from </span><span class="s2">&quot;react-native-paper&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">Indicator from </span><span class="s2">&quot;./Indicator&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">AsyncStorage from </span><span class="s2">&quot;@react-native-async-storage/async-storage&quot;</span><span class="s0">;</span>
+
+<span class="s0">class </span><span class="s1">Sostav </span><span class="s0">extends </span><span class="s1">React.Component{</span>
+
+  <span class="s1">state = {</span>
+    <span class="s1">bluda: []</span><span class="s0">,</span>
+    <span class="s1">indicator: </span><span class="s0">true</span>
+  <span class="s1">}</span>
+
+  <span class="s1">men =  async () =&gt; {</span>
+    <span class="s0">try </span><span class="s1">{</span>
+      <span class="s0">const </span><span class="s1">d =  </span><span class="s0">await </span><span class="s1">axios.get(</span><span class="s2">`https://www.themealdb.com/api/json/v1/1/filter.php?a=</span><span class="s1">${</span><span class="s0">this</span><span class="s1">.props.route.params.sos}</span><span class="s2">`</span><span class="s1">)</span>
+      <span class="s1">console.log(d)</span>
+      <span class="s0">this</span><span class="s1">.setState({bluda: d.data.meals</span>
+      <span class="s1">})</span>
+    <span class="s1">} </span><span class="s0">catch </span><span class="s1">(e) {</span>
+      <span class="s1">console.log(e)</span>
+    <span class="s1">} </span><span class="s0">finally </span><span class="s1">{</span>
+      <span class="s0">this</span><span class="s1">.setState({</span>
+        <span class="s1">indicator: </span><span class="s0">false</span>
+      <span class="s1">})</span>
+    <span class="s1">}</span>
+  <span class="s1">}</span>
+
+
+  <span class="s1">componentDidMount() {</span>
+    <span class="s0">this</span><span class="s1">.men()</span>
+    <span class="s0">this</span><span class="s1">.props.navigation.setOptions({title:</span><span class="s0">this</span><span class="s1">.props.route.params.sos})</span>
+  <span class="s1">}</span>
+
+
+  <span class="s1">render() {</span>
+    <span class="s0">if </span><span class="s1">(</span><span class="s0">this</span><span class="s1">.state.indicator) {</span>
+      <span class="s0">return </span><span class="s1">(</span>
+        <span class="s3">&lt;&gt;</span>
+         <span class="s3">&lt;Indicator/&gt;</span>
+        <span class="s3">&lt;/&gt;</span>
+      <span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">return </span><span class="s1">(</span>
+      <span class="s3">&lt;&gt;</span>
+          <span class="s3">&lt;View</span>
+            <span class="s4">style</span><span class="s2">=</span><span class="s1">{{</span>
+            <span class="s1">flex: </span><span class="s5">1</span><span class="s0">,</span>
+              <span class="s1">backgroundColor: </span><span class="s2">`rgba(86, 210, 196, 0.88)`</span>
+          <span class="s1">}}</span><span class="s3">&gt;</span>
+            <span class="s3">&lt;ScrollView&gt;</span>
+              <span class="s1">{</span><span class="s0">this</span><span class="s1">.state.bluda.map(x =&gt;(</span>
+                <span class="s3">&lt;Card</span>
+                  <span class="s4">style</span><span class="s2">=</span><span class="s1">{{</span>
+                    <span class="s1">margin: </span><span class="s5">10</span><span class="s0">,</span>
+                    <span class="s1">padding: </span><span class="s5">5</span><span class="s0">,</span>
+                    <span class="s1">backgroundColor: </span><span class="s2">`rgba(13, 138, 124, 0.88)`</span>
+                  <span class="s1">}}</span>
+                  <span class="s4">onPress</span><span class="s2">=</span><span class="s1">{()=&gt;{}}</span>
+                <span class="s3">&gt;</span>
+                  <span class="s3">&lt;Card.Content&gt;</span>
+                    <span class="s3">&lt;Title&gt;</span><span class="s1">{x.strMeal}</span><span class="s3">&lt;/Title&gt;</span>
+                  <span class="s3">&lt;/Card.Content&gt;</span>
+                  <span class="s3">&lt;Card.Cover </span><span class="s4">resizeMode</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`contain`</span><span class="s1">} </span><span class="s4">source</span><span class="s2">=</span><span class="s1">{{ uri: x.strMealThumb}}</span><span class="s3">/&gt;</span>
+                <span class="s3">&lt;/Card&gt;</span>
+              <span class="s1">))}</span>
+            <span class="s3">&lt;/ScrollView&gt;</span>
+          <span class="s3">&lt;/View&gt;</span>
+      <span class="s3">&lt;/&gt;</span>
+    <span class="s1">)</span>
+  <span class="s1">}</span>
+<span class="s1">}</span>
+
+<span class="s0">export default </span><span class="s1">Sostav</span><span class="s0">;</span>
+</pre>
+</body>
+</html>

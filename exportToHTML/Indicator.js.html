@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>Indicator.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #e8bf6a;}
+.s4 { color: #bababa;}
+.s5 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Indicator.js</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">React from </span><span class="s2">'react'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">{ Text</span><span class="s0">, </span><span class="s1">View</span><span class="s0">, </span><span class="s1">ActivityIndicator } from </span><span class="s2">'react-native'</span><span class="s0">;</span>
+
+<span class="s0">class </span><span class="s1">Indicator </span><span class="s0">extends </span><span class="s1">React.Component{</span>
+  <span class="s1">render() {</span>
+    <span class="s0">return </span><span class="s1">(</span>
+      <span class="s3">&lt;&gt;</span>
+        <span class="s3">&lt;View</span>
+          <span class="s4">style</span><span class="s2">=</span><span class="s1">{{ flex: </span><span class="s5">1</span><span class="s0">, </span><span class="s1">justifyContent: </span><span class="s2">`center`</span><span class="s0">, </span><span class="s1">alignItems: </span><span class="s2">`center`</span><span class="s0">, </span><span class="s1">backgroundColor:</span><span class="s2">`rgba(86, 210, 196, 0.45)` </span><span class="s1">}}</span><span class="s3">&gt;</span>
+          <span class="s3">&lt;ActivityIndicator </span><span class="s4">color</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`rgba(18, 121, 109, 0.88)`</span><span class="s1">} </span><span class="s4">size</span><span class="s2">=</span><span class="s1">{</span><span class="s5">50</span><span class="s1">} </span><span class="s3">/&gt;</span>
+          <span class="s3">&lt;Text </span><span class="s4">color</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`rgba(18, 121, 109, 0.88)`</span><span class="s1">}</span><span class="s3">&gt;</span><span class="s1">Подождите идет загрузка данных</span><span class="s3">&lt;/Text&gt;</span>
+        <span class="s3">&lt;/View&gt;</span>
+      <span class="s3">&lt;/&gt;</span>
+    <span class="s1">)</span>
+  <span class="s1">}</span>
+<span class="s1">}</span>
+
+<span class="s0">export default </span><span class="s1">Indicator</span><span class="s0">;</span>
+</pre>
+</body>
+</html>

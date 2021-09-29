@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>Zaka.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #e8bf6a;}
+.s4 { color: #bababa;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Zaka.js</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">React from </span><span class="s2">'react'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">{</span>
+  <span class="s1">Text</span><span class="s0">,</span>
+  <span class="s1">View</span><span class="s0">,</span>
+<span class="s1">} from </span><span class="s2">'react-native'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">{ NavigationContainer } from </span><span class="s2">'@react-navigation/native'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">Country from </span><span class="s2">&quot;./Country&quot;</span>
+<span class="s0">import </span><span class="s1">Sostav from </span><span class="s2">&quot;./Sostav&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">{ createNativeStackNavigator } from </span><span class="s2">&quot;@react-navigation/native-stack&quot;</span><span class="s0">;</span>
+
+<span class="s0">const </span><span class="s1">Stack = createNativeStackNavigator()</span><span class="s0">;</span>
+
+<span class="s0">function </span><span class="s1">Zaka (){</span>
+
+    <span class="s0">return </span><span class="s1">(</span>
+      <span class="s3">&lt;&gt;</span>
+        <span class="s3">&lt;Stack.Navigator&gt;</span>
+          <span class="s3">&lt;Stack.Screen  </span><span class="s4">options</span><span class="s2">=</span><span class="s1">{{title: </span><span class="s2">`Страны`</span><span class="s1">}} </span><span class="s4">name</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`Zaka`</span><span class="s1">} </span><span class="s4">component</span><span class="s2">=</span><span class="s1">{Country}</span><span class="s3">/&gt;</span>
+          <span class="s3">&lt;Stack.Screen </span><span class="s4">options</span><span class="s2">=</span><span class="s1">{{title: </span><span class="s2">`Страна`</span><span class="s1">}} </span><span class="s4">name</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`Sostav`</span><span class="s1">} </span><span class="s4">component</span><span class="s2">=</span><span class="s1">{Sostav}</span><span class="s3">/&gt;</span>
+        <span class="s3">&lt;/Stack.Navigator&gt;</span>
+      <span class="s3">&lt;/&gt;</span>
+    <span class="s1">)</span>
+<span class="s1">}</span>
+
+<span class="s0">export default </span><span class="s1">Zaka</span><span class="s0">;</span>
+</pre>
+</body>
+</html>

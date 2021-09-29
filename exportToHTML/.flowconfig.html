@@ -1,0 +1,80 @@
+<html>
+<head>
+<title>.flowconfig</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #a9b7c6;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+.flowconfig</font>
+</center></td></tr></table>
+<pre><span class="s0">[ignore]</span>
+<span class="s0">; We fork some components by platform</span>
+<span class="s0">.*/*[.]android.js</span>
+
+<span class="s0">; Ignore &quot;BUCK&quot; generated dirs</span>
+<span class="s0">&lt;PROJECT_ROOT&gt;/\.buckd/</span>
+
+<span class="s0">; Ignore polyfills</span>
+<span class="s0">node_modules/react-native/Libraries/polyfills/.*</span>
+
+<span class="s0">; Flow doesn't support platforms</span>
+<span class="s0">.*/Libraries/Utilities/LoadingView.js</span>
+
+<span class="s0">[untyped]</span>
+<span class="s0">.*/node_modules/@react-native-community/cli/.*/.*</span>
+
+<span class="s0">[include]</span>
+
+<span class="s0">[libs]</span>
+<span class="s0">node_modules/react-native/interface.js</span>
+<span class="s0">node_modules/react-native/flow/</span>
+
+<span class="s0">[options]</span>
+<span class="s0">emoji=true</span>
+
+<span class="s0">exact_by_default=true</span>
+
+<span class="s0">module.file_ext=.js</span>
+<span class="s0">module.file_ext=.json</span>
+<span class="s0">module.file_ext=.ios.js</span>
+
+<span class="s0">munge_underscores=true</span>
+
+<span class="s0">module.name_mapper='^react-native/\(.*\)$' -&gt; '&lt;PROJECT_ROOT&gt;/node_modules/react-native/\1'</span>
+<span class="s0">module.name_mapper='^@?[./a-zA-Z0-9$_-]+\.\(bmp\|gif\|jpg\|jpeg\|png\|psd\|svg\|webp\|m4v\|mov\|mp4\|mpeg\|mpg\|webm\|aac\|aiff\|caf\|m4a\|mp3\|wav\|html\|pdf\)$' -&gt; '&lt;PROJECT_ROOT&gt;/node_modules/react-native/Libraries/Image/RelativeImageStub'</span>
+
+<span class="s0">suppress_type=$FlowIssue</span>
+<span class="s0">suppress_type=$FlowFixMe</span>
+<span class="s0">suppress_type=$FlowFixMeProps</span>
+<span class="s0">suppress_type=$FlowFixMeState</span>
+
+<span class="s0">[lints]</span>
+<span class="s0">sketchy-null-number=warn</span>
+<span class="s0">sketchy-null-mixed=warn</span>
+<span class="s0">sketchy-number=warn</span>
+<span class="s0">untyped-type-import=warn</span>
+<span class="s0">nonstrict-import=warn</span>
+<span class="s0">deprecated-type=warn</span>
+<span class="s0">unsafe-getters-setters=warn</span>
+<span class="s0">unnecessary-invariant=warn</span>
+<span class="s0">signature-verification-failure=warn</span>
+
+<span class="s0">[strict]</span>
+<span class="s0">deprecated-type</span>
+<span class="s0">nonstrict-import</span>
+<span class="s0">sketchy-null</span>
+<span class="s0">unclear-type</span>
+<span class="s0">unsafe-getters-setters</span>
+<span class="s0">untyped-import</span>
+<span class="s0">untyped-type-import</span>
+
+<span class="s0">[version]</span>
+<span class="s0">^0.149.0</span>
+</pre>
+</body>
+</html>

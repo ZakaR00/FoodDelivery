@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>metro.config.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #629755; font-style: italic;}
+.s1 { color: #629755; font-weight: bold; font-style: italic;}
+.s2 { color: #a9b7c6;}
+.s3 { color: #cc7832;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+metro.config.js</font>
+</center></td></tr></table>
+<pre><span class="s0">/**</span>
+ <span class="s0">* Metro configuration for React Native</span>
+ <span class="s0">* https://github.com/facebook/react-native</span>
+ <span class="s0">*</span>
+ <span class="s0">* </span><span class="s1">@format</span>
+ <span class="s0">*/</span>
+
+<span class="s2">module.exports = {</span>
+  <span class="s2">transformer: {</span>
+    <span class="s2">getTransformOptions: async () =&gt; ({</span>
+      <span class="s2">transform: {</span>
+        <span class="s2">experimentalImportSupport: </span><span class="s3">false,</span>
+        <span class="s2">inlineRequires: </span><span class="s3">true,</span>
+      <span class="s2">}</span><span class="s3">,</span>
+    <span class="s2">})</span><span class="s3">,</span>
+  <span class="s2">}</span><span class="s3">,</span>
+<span class="s2">}</span><span class="s3">;</span>
+</pre>
+</body>
+</html>

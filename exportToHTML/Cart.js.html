@@ -1,0 +1,121 @@
+<html>
+<head>
+<title>Cart.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #e8bf6a;}
+.s4 { color: #bababa;}
+.s5 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Cart.js</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">React from </span><span class="s2">&quot;react&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">{</span>
+  <span class="s1">Button</span><span class="s0">,</span>
+  <span class="s1">FlatList</span><span class="s0">, </span><span class="s1">View</span><span class="s0">,</span>
+<span class="s1">} from </span><span class="s2">&quot;react-native&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">AsyncStorage from </span><span class="s2">&quot;@react-native-async-storage/async-storage&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">Loading from </span><span class="s2">&quot;./Loading&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">{ Card } from </span><span class="s2">&quot;react-native-paper&quot;</span><span class="s0">;</span>
+
+<span class="s0">class </span><span class="s1">Cart </span><span class="s0">extends </span><span class="s1">React.Component {</span>
+  <span class="s1">state = {</span>
+    <span class="s1">Cart: []</span><span class="s0">,</span>
+    <span class="s1">internetCheck: </span><span class="s2">`expectations`</span><span class="s0">,</span>
+  <span class="s1">}</span><span class="s0">;</span>
+
+  <span class="s1">componentDidMount() {</span>
+    <span class="s0">this</span><span class="s1">.start()</span><span class="s0">;</span>
+    <span class="s0">this</span><span class="s1">.Restart()</span><span class="s0">;</span>
+  <span class="s1">}</span>
+
+  <span class="s1">Delete = (item) =&gt; {</span>
+    <span class="s0">const </span><span class="s1">s = </span><span class="s0">this</span><span class="s1">.state.Cart.filter((i) =&gt; {</span><span class="s0">return </span><span class="s1">i.idMeal !== item})</span>
+    <span class="s0">const </span><span class="s1">d = AsyncStorage.setItem(</span><span class="s2">`cart`</span><span class="s0">, </span><span class="s1">JSON.stringify(s))</span>
+    <span class="s1">d.then(() =&gt; </span><span class="s0">this</span><span class="s1">.setState({Cart: s}))</span><span class="s0">;</span>
+  <span class="s1">}</span>
+
+  <span class="s1">start = () =&gt; {</span>
+    <span class="s0">const </span><span class="s1">data = AsyncStorage.getItem(</span><span class="s2">`cart`</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">data.then((res) =&gt; {</span>
+      <span class="s0">this</span><span class="s1">.setState({ Cart: JSON.parse(res) })</span><span class="s0">;</span>
+    <span class="s1">}).finally(() =&gt; {</span>
+      <span class="s0">this</span><span class="s1">.setState({ internetCheck: </span><span class="s2">`good` </span><span class="s1">})</span><span class="s0">;</span>
+    <span class="s1">})</span><span class="s0">;</span>
+  <span class="s1">}</span><span class="s0">;</span>
+
+  <span class="s1">Restart = () =&gt; {</span>
+    <span class="s0">this</span><span class="s1">.addListener = </span><span class="s0">this</span><span class="s1">.props.navigation.addListener(</span><span class="s2">`focus`</span><span class="s0">, </span><span class="s1">() =&gt; {</span>
+      <span class="s0">const </span><span class="s1">data = AsyncStorage.getItem(</span><span class="s2">`cart`</span><span class="s1">)</span><span class="s0">;</span>
+      <span class="s1">data.then((res) =&gt; {</span>
+        <span class="s0">this</span><span class="s1">.setState({ Cart: JSON.parse(res) })</span><span class="s0">;</span>
+      <span class="s1">}).finally(() =&gt; {</span>
+        <span class="s0">this</span><span class="s1">.setState({ internetCheck: </span><span class="s2">`good` </span><span class="s1">})</span><span class="s0">;</span>
+      <span class="s1">})</span><span class="s0">;</span>
+    <span class="s1">})</span><span class="s0">;</span>
+  <span class="s1">}</span><span class="s0">;</span>
+
+  <span class="s1">render() {</span>
+    <span class="s0">if </span><span class="s1">(</span><span class="s0">this</span><span class="s1">.state.internetCheck === </span><span class="s2">`expectations`</span><span class="s1">) {</span>
+      <span class="s0">return </span><span class="s3">&lt;Loading /&gt;</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">return </span><span class="s1">(</span>
+      <span class="s3">&lt;&gt;</span>
+        <span class="s3">&lt;FlatList </span><span class="s4">data</span><span class="s2">=</span><span class="s1">{</span><span class="s0">this</span><span class="s1">.state.Cart} </span><span class="s4">renderItem</span><span class="s2">=</span><span class="s1">{({ item }) =&gt; {</span>
+          <span class="s0">return </span><span class="s1">(</span>
+            <span class="s3">&lt;&gt;</span>
+              <span class="s3">&lt;Card</span>
+                <span class="s4">style</span><span class="s2">=</span><span class="s1">{{</span>
+                  <span class="s1">margin: </span><span class="s5">20</span><span class="s0">,</span>
+                <span class="s1">}}</span>
+              <span class="s3">&gt;</span>
+                <span class="s3">&lt;Card.Actions&gt;</span>
+                  <span class="s3">&lt;Card.Title </span><span class="s4">title</span><span class="s2">=</span><span class="s1">{item.strMeal} </span><span class="s3">/&gt;</span>
+                <span class="s3">&lt;/Card.Actions&gt;</span>
+                <span class="s3">&lt;Card.Content&gt;</span>
+                  <span class="s3">&lt;Card.Cover </span><span class="s4">source</span><span class="s2">=</span><span class="s1">{{ uri: item.strMealThumb }} </span><span class="s3">/&gt;</span>
+                <span class="s3">&lt;/Card.Content&gt;</span>
+                <span class="s3">&lt;View</span>
+                  <span class="s4">style</span><span class="s2">=</span><span class="s1">{{</span>
+                    <span class="s1">flexDirection: </span><span class="s2">`row`</span><span class="s0">,</span>
+                  <span class="s1">}}</span>
+                <span class="s3">&gt;</span>
+                  <span class="s3">&lt;View </span><span class="s4">style</span><span class="s2">=</span><span class="s1">{{</span>
+                    <span class="s1">width: </span><span class="s2">`50%`</span><span class="s0">,</span>
+                    <span class="s1">paddingRight: </span><span class="s5">10</span><span class="s0">,</span>
+                  <span class="s1">}}</span><span class="s3">&gt;</span>
+                    <span class="s3">&lt;Button </span><span class="s4">title</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`More details`</span><span class="s1">} </span><span class="s4">onPress</span><span class="s2">=</span><span class="s1">{() =&gt; {</span>
+                      <span class="s0">this</span><span class="s1">.props.navigation.navigate(</span><span class="s2">&quot;Food&quot;</span><span class="s0">, </span><span class="s1">{ id: item.idMeal })</span><span class="s0">;</span>
+                    <span class="s1">}}</span><span class="s3">/&gt;</span>
+                  <span class="s3">&lt;/View&gt;</span>
+                  <span class="s3">&lt;View</span>
+                    <span class="s4">style</span><span class="s2">=</span><span class="s1">{{</span>
+                      <span class="s1">width: </span><span class="s2">`50%`</span><span class="s0">,</span>
+                    <span class="s1">}}</span>
+                  <span class="s3">&gt;</span>
+                    <span class="s3">&lt;Button </span><span class="s4">title</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`Delete`</span><span class="s1">} </span><span class="s4">onPress</span><span class="s2">=</span><span class="s1">{() =&gt; </span><span class="s0">this</span><span class="s1">.Delete(item.idMeal)}</span><span class="s3">/&gt;</span>
+                  <span class="s3">&lt;/View&gt;</span>
+                <span class="s3">&lt;/View&gt;</span>
+              <span class="s3">&lt;/Card&gt;</span>
+            <span class="s3">&lt;/&gt;</span>
+          <span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}} </span><span class="s3">/&gt;</span>
+        <span class="s3">&lt;Button </span><span class="s4">title</span><span class="s2">=</span><span class="s1">{</span><span class="s2">`to order`</span><span class="s1">} </span><span class="s4">onPress</span><span class="s2">=</span><span class="s1">{() =&gt; </span><span class="s0">this</span><span class="s1">.props.navigation.navigate(</span><span class="s2">`Order`</span><span class="s0">, </span><span class="s1">{data: </span><span class="s0">this</span><span class="s1">.state.Cart})}</span><span class="s3">/&gt;</span>
+      <span class="s3">&lt;/&gt;</span>
+    <span class="s1">)</span><span class="s0">;</span>
+  <span class="s1">}</span>
+<span class="s1">}</span>
+
+<span class="s0">export default </span><span class="s1">Cart</span><span class="s0">;</span>
+</pre>
+</body>
+</html>
